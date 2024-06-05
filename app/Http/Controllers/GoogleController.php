@@ -69,32 +69,31 @@ class GoogleController extends Controller
         // dd($accessToken);
 
         // Fetch accounts
-        $client = new Client();
+        // $client = new Client();
 
-        $response = $client->request('GET', 'https://mybusinessbusinessinformation.googleapis.com/$discovery/rest?version=v1', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Accept' => 'application/json',
-            ],
-        ]);
-        $body = $response->getBody()->getContents();
-        $data = json_decode($body, true);
+        // $response = $client->request('GET', 'https://mybusinessbusinessinformation.googleapis.com/$discovery/rest?version=v1', [
+        //     'headers' => [
+        //         'Authorization' => 'Bearer ' . $accessToken,
+        //         'Accept' => 'application/json',
+        //     ],
+        // ]);
+        // $body = $response->getBody()->getContents();
+        // $data = json_decode($body, true);
         // dd($data['resources']['accounts']);
         // $account = $data['accounts'];
         // dd($account);
         // Assuming "account" is a key in the JSON response
-        if (isset($data['account'])) {
-            $account = $data['account'];
-            echo $account;
-        } else {
-            echo "Account not found in the response.";
-        }
-        exit;
-        // $response = Http::withToken($accessToken)->get('https://mybusinessbusinessinformation.googleapis.com/$discovery/rest?version=v1');
-        $accounts = $body->locations;
+        // if (isset($data['account'])) {
+        //     $account = $data['account'];
+        //     echo $account;
+        // } else {
+        //     echo "Account not found in the response.";
+        // }
+        // exit;
+        $response = Http::withToken($accessToken)->get('https://mybusinessbusinessinformation.googleapis.com/$discovery/rest?version=v1');
+        // $accounts = $body->locations;
 
         if ($response->successful()) {
-            dd($accounts);
 
             if (!empty($accounts)) {
                 $accountName = $accounts[0]['name'];
